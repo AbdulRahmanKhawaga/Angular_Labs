@@ -1,4 +1,4 @@
-![Angulor logo](https://drive.google.com/drive/folders/1IgcAwLDVZUz8ycnFa7T4_H6B4V4LhYUQ)
+![Angulor logo](https://ih1.redbubble.net/image.658262050.2481/flat,750x,075,f-pad,750x1000,f8f8f8.u7.jpg)
 
 # 🌐 Angular Course Labs Repository
 
