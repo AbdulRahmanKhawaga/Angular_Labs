@@ -1,6 +1,6 @@
-![Angulor logo](https://ih1.redbubble.net/image.658262050.2481/flat,750x,075,f-pad,750x1000,f8f8f8.u7.jpg)
-
 # 🌐 Angular Course Labs Repository
+<img src="https://ih1.redbubble.net/image.658262050.2481/flat,750x,075,f-pad,750x1000,f8f8f8.u7.jpg" alt="Angular logo" width="200"/>
+
 
 This repository contains lab solutions for an **Angular course**.  
 Each lab is maintained in a **separate branch**, structured for clarity, isolation, and ease of navigation.
