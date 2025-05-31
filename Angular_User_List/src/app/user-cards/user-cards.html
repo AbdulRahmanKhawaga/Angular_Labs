@@ -1,0 +1,27 @@
+<div class="cards-container">
+  <div class="card" *ngFor="let user of filteredUsers">
+    <div class="card-header">
+      <img [src]="user.profilePicture" [alt]="user.username" class="profile-image">
+      <div class="verification-badge" [class.verified]="user.isVerified">
+        <i *ngIf="user.isVerified; else notVerified" class="bi bi-check-lg"></i>
+        <ng-template #notVerified>
+          <i class="bi bi-x-lg"></i>
+        </ng-template>
+      </div>
+
+    </div>
+    <div class="card-body">
+      <h3 class="username">{{ user.username }}</h3>
+      <div class="user-info">
+        <p class="info-item">
+          <span class="icon"><i class="bi bi-envelope"></i></span>
+          {{ user.email }}
+        </p>
+        <p class="info-item">
+          <span class="icon"><i class="bi bi-telephone"></i></span>
+          {{ user.phoneNumber }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

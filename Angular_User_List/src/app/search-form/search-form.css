@@ -1,0 +1,81 @@
+.search-container {
+  padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.title {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-form {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.search-input-container {
+  display: flex;
+  gap: 1rem;
+  background: white;
+  padding: 0.5rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  outline: none;
+  border-radius: 25px;
+  background: #f8f9fa;
+}
+
+.search-button {
+  background: #2c3e50;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.search-button:hover {
+  background: #34495e;
+  transform: translateY(-1px);
+}
+
+.search-icon {
+  font-size: 1.2rem;
+}
+
+.reset-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.reset-button:hover {
+  background-color: #c82333;
+}
+
+.reset-button i {
+  font-size: 14px;
+}
