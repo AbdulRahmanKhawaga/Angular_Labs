@@ -1,0 +1,107 @@
+<div class="container mt-5">
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border spinner-color" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading product details...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div *ngIf="product && !loading" class="product-details-container">
+    <div class="row">
+      <!-- Product Image Section -->
+      <div class="col-md-6 mb-4">
+        <div class="product-image-container">
+          <img [src]="product.thumbnail" [alt]="product.title" class="img-fluid main-image rounded shadow">
+          <span class="badge position-absolute category-badge">{{ product.category }}</span>
+        </div>
+      </div>
+
+      <!-- Product Info Section -->
+      <div class="col-md-6">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+            <li class="breadcrumb-item"><a routerLink="/">Products</a></li>
+            <li class="breadcrumb-item active">{{ product.title }}</li>
+          </ol>
+        </nav>
+
+        <h1 class="product-title">{{ product.title }}</h1>
+
+        <div class="ratings mb-3">
+          <div class="stars">
+            <i *ngFor="let star of ratingStars"
+               class="bi"
+               [ngClass]="{'bi-star-fill': star <= product.rating, 'bi-star': star > product.rating}"></i>
+            <span class="ms-2 text-muted">{{ product.rating }}/5</span>
+          </div>
+        </div>
+
+        <div class="stock-status mb-3">
+          <span [ngClass]="{'text-danger': product.stock === 0, 'text-success': product.stock > 0}">
+            <i class="bi" [ngClass]="{'bi-x-circle-fill': product.stock === 0, 'bi-check-circle-fill': product.stock > 0}"></i>
+            {{ product.stock === 0 ? 'Out of Stock' : 'In Stock' }}
+          </span>
+        </div>
+
+        <div class="price-container mb-4">
+          <h2 class="current-price">
+            ${{ product.price | discount:product.discountPercentage }}
+            <span class="original-price" *ngIf="product.discountPercentage > 0">
+              ${{ product.price }}
+            </span>
+            <span class="discount-badge" *ngIf="product.discountPercentage > 0">
+              Save {{ product.discountPercentage }}%
+            </span>
+          </h2>
+        </div>
+
+        <div class="product-description mb-4">
+          <h5>Description:</h5>
+          <p>{{ product.description }}</p>
+        </div>
+
+        <div class="product-meta mb-4">
+          <div class="meta-item">
+            <span class="meta-label">Category:</span>
+            <span class="meta-value">{{ product.category }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Brand:</span>
+            <span class="meta-value">{{ product.brand }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Stock:</span>
+            <span class="meta-value">{{ product.stock }} units</span>
+          </div>
+        </div>
+
+        <div class="quantity-selector mb-4" *ngIf="product.stock > 0">
+          <h5>Quantity:</h5>
+          <div class="d-flex align-items-center">
+            <button class="btn btn-quantity" (click)="decreaseQuantity()" [disabled]="quantity <= 1">
+              <i class="bi bi-dash"></i>
+            </button>
+            <span class="quantity-value mx-3">{{ quantity }}</span>
+            <button class="btn btn-quantity" (click)="increaseQuantity()" [disabled]="quantity >= product.stock">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="product-actions">
+          <button class="btn btn-cart btn-lg" [disabled]="product.stock === 0" (click)="addToCart()">
+            <i class="bi bi-cart-plus me-2"></i>Add to Cart
+          </button>
+          <button class="btn btn-outline-secondary btn-lg ms-2">
+            <i class="bi bi-heart me-2"></i>Add to Wishlist
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

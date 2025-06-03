@@ -1,0 +1,94 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">Register</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+              >
+              <div *ngIf="submitted && f['email'].errors" class="text-danger">
+                <div *ngIf="f['email'].errors['required']">Email is required</div>
+                <div *ngIf="f['email'].errors['email']">Please enter a valid email address</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                formControlName="name"
+              >
+              <div *ngIf="submitted && f['name'].errors" class="text-danger">
+                <div *ngIf="f['name'].errors['required']">Name is required</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                formControlName="username"
+              >
+              <div *ngIf="submitted && f['username'].errors" class="text-danger">
+                <div *ngIf="f['username'].errors['required']">Username is required</div>
+                <div *ngIf="f['username'].errors['containsSpaces']">Username cannot contain spaces</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                formControlName="password"
+              >
+              <div *ngIf="submitted && f['password'].errors" class="text-danger">
+                <div *ngIf="f['password'].errors['required']">Password is required</div>
+                <div *ngIf="f['password'].errors['minlength']">Password must be at least 8 characters</div>
+                <div *ngIf="f['password'].errors['passwordStrength']">
+                  Password must contain at least:
+                  <ul>
+                    <li *ngIf="!f['password'].errors['passwordStrength'].hasUpperCase">One uppercase letter</li>
+                    <li *ngIf="!f['password'].errors['passwordStrength'].hasLowerCase">One lowercase letter</li>
+                    <li *ngIf="f['password'].errors && f['password'].errors['passwordStrength'] && !f['password'].errors['passwordStrength'].hasSpecial">One special character (*&#64;%$#)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">Confirm Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                formControlName="confirmPassword"
+              >
+              <div *ngIf="submitted && f['confirmPassword'].errors" class="text-danger">
+                <div *ngIf="f['confirmPassword'].errors['required']">Please confirm your password</div>
+                <div *ngIf="f['confirmPassword'].errors['passwordMismatch']">Passwords do not match</div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,64 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div *ngFor="let product of paginatedProducts" class="col-md-3 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-img-container">
+          <img [src]="product.thumbnail" class="card-img-top" alt="{{ product.title }}">
+          <span class="badge position-absolute category-badge">{{ product.category }}</span>
+          <span class="badge position-absolute discount-badge" *ngIf="product.discountPercentage > 0">
+            -{{ product.discountPercentage | number:'1.0-0' }}%
+          </span>
+        </div>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title text-truncate">{{ product.title }}</h5>
+          <div class="ratings mb-2">
+            <div class="stars">
+              <i *ngFor="let star of [1,2,3,4,5]"
+                 class="bi"
+                 [ngClass]="{'bi-star-fill': star <= product.rating, 'bi-star': star > product.rating}"></i>
+              <span class="ms-2 text-muted">{{ product.rating }}/5</span>
+            </div>
+          </div>
+          <p class="card-text flex-grow-1 description">{{ product.description | slice:0:80 }}...</p>
+          <div class="product-details mb-2">
+            <span [ngClass]="{'text-danger': product.stock === 0, 'text-success': product.stock > 0}">
+              <i class="bi" [ngClass]="{'bi-x-circle-fill': product.stock === 0, 'bi-check-circle-fill': product.stock > 0}"></i>
+              {{ product.stock === 0 ? 'Out of Stock' : 'In Stock' }}
+              <span class="ms-2 badge bg-secondary">Stock: {{ product.stock }}</span>
+            </span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mt-2">
+            <div class="price-container">
+              <h6 class="price mb-0">${{ product.price | discount:product.discountPercentage }}</h6>
+              <small class="original-price" *ngIf="product.discountPercentage > 0">
+                ${{ product.price }}
+              </small>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-sm btn-details" [routerLink]="['/product', product.id]">
+                <i class="bi bi-eye me-1"></i>Details
+              </button>
+              <button class="btn btn-sm btn-cart" [disabled]="product.stock === 0" (click)="addToCart(product)">
+                <i class="bi bi-cart-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <button class="page-link" (click)="setPage(currentPage - 1)" [disabled]="currentPage === 1">&laquo;</button>
+      </li>
+      <li *ngFor="let page of totalPages" class="page-item" [class.active]="page === currentPage">
+        <button class="page-link" (click)="setPage(page)">{{ page }}</button>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages.length">
+        <button class="page-link" (click)="setPage(currentPage + 1)" [disabled]="currentPage === totalPages.length">&raquo;</button>
+      </li>
+    </ul>
+  </nav>
+</div>

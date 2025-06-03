@@ -1,0 +1,104 @@
+<div class="container mt-5">
+  <div class="cart-container">
+    <h1 class="cart-title mb-4">Your Shopping Cart</h1>
+
+    <div *ngIf="cartItems.length === 0" class="empty-cart text-center py-5">
+      <i class="bi bi-cart-x empty-cart-icon"></i>
+      <h3>Your cart is empty</h3>
+      <p>Looks like you haven't added anything to your cart yet.</p>
+      <a routerLink="/" class="btn btn-continue-shopping mt-3">
+        <i class="bi bi-arrow-left me-2"></i>Continue Shopping
+      </a>
+    </div>
+
+    <div *ngIf="cartItems.length > 0">
+      <div class="table-responsive">
+        <table class="table cart-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of cartItems">
+              <td>
+                <div class="cart-item-product">
+                  <img [src]="item.product.thumbnail" [alt]="item.product.title" class="cart-item-image">
+                  <div class="cart-item-details">
+                    <h5 class="cart-item-title">{{ item.product.title }}</h5>
+                    <p class="cart-item-category">{{ item.product.category }}</p>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="cart-item-price">
+                  <span class="current-price">${{ item.product.price | discount:item.product.discountPercentage }}</span>
+                  <span class="original-price" *ngIf="item.product.discountPercentage > 0">
+                    ${{ item.product.price }}
+                  </span>
+                </div>
+              </td>
+              <td>
+                <div class="quantity-control">
+                  <button class="btn btn-quantity" (click)="updateQuantity(item.product.id, item.quantity - 1)" [disabled]="item.quantity <= 1">
+                    <i class="bi bi-dash"></i>
+                  </button>
+                  <span class="quantity-value">{{ item.quantity }}</span>
+                  <button class="btn btn-quantity" (click)="updateQuantity(item.product.id, item.quantity + 1)" [disabled]="item.quantity >= item.product.stock">
+                    <i class="bi bi-plus"></i>
+                  </button>
+                </div>
+              </td>
+              <td>
+                <span class="cart-item-total">${{ getItemTotal(item) | number:'1.2-2' }}</span>
+              </td>
+              <td>
+                <button class="btn btn-remove" (click)="removeItem(item.product.id)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cart-summary">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="cart-actions">
+              <a routerLink="/" class="btn btn-continue-shopping">
+                <i class="bi bi-arrow-left me-2"></i>Continue Shopping
+              </a>
+              <button class="btn btn-clear-cart ms-2" (click)="clearCart()">
+                <i class="bi bi-trash me-2"></i>Clear Cart
+              </button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="cart-totals">
+              <div class="cart-total-row">
+                <span>Subtotal:</span>
+                <span>${{ getCartTotal() | number:'1.2-2' }}</span>
+              </div>
+              <div class="cart-total-row">
+                <span>Shipping:</span>
+                <span>Free</span>
+              </div>
+              <div class="cart-total-row grand-total">
+                <span>Total:</span>
+                <span>${{ getCartTotal() | number:'1.2-2' }}</span>
+              </div>
+              <button class="btn btn-checkout w-100 mt-3">
+                <i class="bi bi-credit-card me-2"></i>Proceed to Checkout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
